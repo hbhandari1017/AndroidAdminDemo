@@ -18,7 +18,8 @@ import java.io.Serializable
 data class Product(
 
     @PrimaryKey
-    val id: String,
+    val id: Long? = null,
+
 
     val name: String,
 

@@ -13,6 +13,9 @@ interface UserDao /*: BaseDao<Image> */ {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(users: List<User>)
+
     @Update()
     suspend fun update(user: User)
 

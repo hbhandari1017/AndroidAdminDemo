@@ -12,8 +12,8 @@ import java.io.Serializable
 )
 data class User(
 
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long? = null,
 
     val userName: String,
 

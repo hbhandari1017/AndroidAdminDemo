@@ -13,7 +13,8 @@ import java.io.Serializable
 data class Category(
 
     @PrimaryKey
-    val id: String,
+    val id: Long? = null,
+
 
     val name: String,
 

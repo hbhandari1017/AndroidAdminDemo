@@ -3,6 +3,7 @@ package com.hb.collegeprojectdemo.di
 
 import android.content.Context
 import androidx.room.Room
+import com.hb.collegeprojectdemo.database.PrePopulateData
 import com.hb.collegeprojectdemo.database.configuration.AppDatabase
 import com.hb.collegeprojectdemo.database.configuration.DatabaseConfigs
 import com.hb.collegeprojectdemo.database.dao.CategoryDao
@@ -28,7 +29,8 @@ object DbModule {
                 AppDatabase::class.java,
                 DatabaseConfigs.databaseName
             )
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton

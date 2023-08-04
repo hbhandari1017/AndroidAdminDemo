@@ -8,7 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.hb.collegeprojectdemo.databinding.FragmentGalleryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
