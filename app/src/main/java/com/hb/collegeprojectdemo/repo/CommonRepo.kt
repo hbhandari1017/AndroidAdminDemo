@@ -15,6 +15,7 @@ class CommonRepo constructor(
     suspend fun getAllUsers() = userDao.getAllUsers()
 
     suspend fun addAdmin(user: User) = userDao.insert(user)
+    suspend fun getAllCategory() = categoryDao.getAllCategories()
 
 
 }

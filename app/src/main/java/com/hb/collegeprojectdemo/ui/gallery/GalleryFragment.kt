@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.hb.collegeprojectdemo.adapter.CommonAdapter
 import com.hb.collegeprojectdemo.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,6 +17,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
+    private lateinit var adapter: CommonAdapter
+
+    val galleryViewModel: GalleryViewModel by viewModels()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,17 +31,42 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        initAdapter()
+        initObserver()
 
-        val textView: TextView = binding.textGallery
         galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
         }
         return root
+    }
+
+    private fun initObserver() {
+        galleryViewModel.getAllCategoryState.observe(viewLifecycleOwner) {
+            when (it) {
+                is CategoryState.Success -> {
+                    adapter.updateListLayout(it.categories)
+                    
+                }
+
+                is CategoryState.Error -> {
+
+
+                }
+                is CategoryState.IsLoading -> {
+                }
+            }
+        }
+
+    }
+
+    private fun initAdapter() {
+        adapter = CommonAdapter()
+        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.categoryRecyclerView.adapter = adapter
+
+
     }
 
     override fun onDestroyView() {
