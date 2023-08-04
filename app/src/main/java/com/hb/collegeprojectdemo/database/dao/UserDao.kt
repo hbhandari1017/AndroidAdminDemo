@@ -4,7 +4,10 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Update
+import com.hb.collegeprojectdemo.database.configuration.DatabaseConfigs
+import com.hb.collegeprojectdemo.database.model.Product
 import com.hb.collegeprojectdemo.database.model.User
 
 @Dao
@@ -15,6 +18,9 @@ interface UserDao /*: BaseDao<Image> */ {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(users: List<User>)
+
+    @Query("SELECT * FROM " + DatabaseConfigs.tbl_user)
+    suspend fun getAllUsers(): List<User>
 
     @Update()
     suspend fun update(user: User)
