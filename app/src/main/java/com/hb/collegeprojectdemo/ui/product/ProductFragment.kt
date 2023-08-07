@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.slideshow
+package com.hb.collegeprojectdemo.ui.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hb.collegeprojectdemo.R
 import com.hb.collegeprojectdemo.adapter.ProductAdapter
 import com.hb.collegeprojectdemo.databinding.FragmentSlideshowBinding
 import com.hb.collegeprojectdemo.utils.Preference
@@ -18,7 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class SlideshowFragment : Fragment() {
+class ProductFragment : Fragment() {
 
     private var _binding: FragmentSlideshowBinding? = null
 
@@ -54,11 +52,7 @@ class SlideshowFragment : Fragment() {
         return root
     }
 
-    private fun goToHome(){
-        Preference.setUserLoggedIn(false)
-        findNavController().navigate(R.id.action_slideShow_to_HomeFragment)
 
-    }
 
     private fun initListeners() {
 //        binding.categoryAdd.setOnClickListener {
@@ -84,9 +78,7 @@ class SlideshowFragment : Fragment() {
 //
 //        }
 
-        binding.logOut.setOnClickListener {
-            goToHome()
-        }
+
     }
 
     private fun initAdapter() {

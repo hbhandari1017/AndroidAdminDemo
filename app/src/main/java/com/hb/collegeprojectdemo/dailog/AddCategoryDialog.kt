@@ -10,7 +10,7 @@ import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.databinding.PhotosaveDailogBinding
 
 
-class SavePhotoDialog(context: Context) : Dialog(context) {
+class AddCategoryDialog(context: Context) : Dialog(context) {
     private lateinit var binding: PhotosaveDailogBinding
     var onTryAgainListener: OnTryAgainListener? = null
 

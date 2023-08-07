@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.home
+package com.hb.collegeprojectdemo.ui.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -22,7 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class LoginFragment : Fragment() {
 
 //    private var _binding: FragmentHomeBinding? = null
     private var _binding: FragmentLoginBinding? = null

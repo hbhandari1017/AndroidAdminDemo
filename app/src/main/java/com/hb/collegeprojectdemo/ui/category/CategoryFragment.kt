@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.gallery
+package com.hb.collegeprojectdemo.ui.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hb.collegeprojectdemo.R
-import com.hb.collegeprojectdemo.adapter.CommonAdapter
-import com.hb.collegeprojectdemo.dailog.SavePhotoDialog
+import com.hb.collegeprojectdemo.adapter.CategoryAdapter
+import com.hb.collegeprojectdemo.dailog.AddCategoryDialog
 import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.databinding.FragmentGalleryBinding
 import com.hb.collegeprojectdemo.utils.Preference
@@ -19,10 +19,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class GalleryFragment : Fragment() {
+class CategoryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
-    private lateinit var adapter: CommonAdapter
+    private lateinit var adapter: CategoryAdapter
 
     val galleryViewModel: GalleryViewModel by viewModels()
 
@@ -30,7 +30,7 @@ class GalleryFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var addCategoryDialog: SavePhotoDialog
+    lateinit var addCategoryDialog: AddCategoryDialog
 
 
     override fun onCreateView(
@@ -60,10 +60,10 @@ class GalleryFragment : Fragment() {
 
     private fun initListeners() {
         binding.categoryAdd.setOnClickListener {
-            addCategoryDialog = SavePhotoDialog(requireActivity()).apply {
+            addCategoryDialog = AddCategoryDialog(requireActivity()).apply {
 
 
-                this.onTryAgainListener = object : SavePhotoDialog.OnTryAgainListener {
+                this.onTryAgainListener = object : AddCategoryDialog.OnTryAgainListener {
                     override fun okButtonClicked(category: Category) {
 
                         galleryViewModel.addCategoryFromUser(category)
@@ -134,7 +134,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = CommonAdapter()
+        adapter = CategoryAdapter()
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.categoryRecyclerView.adapter = adapter
         adapter.checkClickListener = { category, position ->

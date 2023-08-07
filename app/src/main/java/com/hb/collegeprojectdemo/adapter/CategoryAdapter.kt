@@ -9,7 +9,7 @@ import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.databinding.CategoryListViewBinding
 
 
-class CommonAdapter  : ListAdapter<Category, HorizontalListViewHolder>(DiffCallback()) {
+class CategoryAdapter  : ListAdapter<Category, CategoryHorizontalListViewHolder>(DiffCallback()) {
 
     private lateinit var adapterBinding:CategoryListViewBinding
 
@@ -29,13 +29,13 @@ class CommonAdapter  : ListAdapter<Category, HorizontalListViewHolder>(DiffCallb
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHorizontalListViewHolder {
         adapterBinding = CategoryListViewBinding.inflate( LayoutInflater.from(parent.context),parent,false)
 
-        return HorizontalListViewHolder(adapterBinding,checkClickListener)
+        return CategoryHorizontalListViewHolder(adapterBinding,checkClickListener)
     }
 
-    override fun onBindViewHolder(holder: HorizontalListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryHorizontalListViewHolder, position: Int) {
         holder.bind(getItem(position),position)
 
 

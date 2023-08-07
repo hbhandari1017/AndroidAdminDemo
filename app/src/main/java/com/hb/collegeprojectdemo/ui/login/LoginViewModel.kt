@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.home
+package com.hb.collegeprojectdemo.ui.login
 
 import android.util.Log
 import androidx.lifecycle.LiveData

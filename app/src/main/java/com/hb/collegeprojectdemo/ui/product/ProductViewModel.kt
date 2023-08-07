@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.slideshow
+package com.hb.collegeprojectdemo.ui.product
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

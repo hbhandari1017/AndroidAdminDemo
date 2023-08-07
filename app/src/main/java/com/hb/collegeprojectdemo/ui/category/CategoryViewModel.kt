@@ -1,4 +1,4 @@
-package com.hb.collegeprojectdemo.ui.gallery
+package com.hb.collegeprojectdemo.ui.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -7,7 +7,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="@color/white"
-tools:context=".ui.slideshow.SlideshowFragment"
+tools:context=".ui.product.ProductFragment"
 >
 
 <androidx.appcompat.widget.LinearLayoutCompat
@@ -19,12 +19,7 @@ tools:context=".ui.slideshow.SlideshowFragment"
     android:layout_marginRight="16dp"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/logOut"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:src="@drawable/ic_menu_camera"
-        />
+
 
 
     <TextView
@@ -42,7 +37,7 @@ tools:context=".ui.slideshow.SlideshowFragment"
         android:id="@+id/categoryAdd"
         android:layout_width="50dp"
         android:layout_height="45dp"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@mipmap/add"
         />
 
 

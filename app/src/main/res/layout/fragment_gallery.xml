@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.gallery.GalleryFragment">
+    tools:context=".ui.category.CategoryFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/header"
@@ -21,7 +21,7 @@
             android:id="@+id/logOut"
             android:layout_width="50dp"
             android:layout_height="45dp"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@mipmap/log_out"
             />
 
 
@@ -40,7 +40,7 @@
             android:id="@+id/categoryAdd"
             android:layout_width="50dp"
             android:layout_height="45dp"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@mipmap/add"
              />
 
 
