@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="150dp"
+    android:background="@drawable/dialog_bg">
+
+    <TextView
+        android:id="@+id/dialogDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/error_dialog_description"
+        android:textColor="@color/inputLabel"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/dialogBorder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/dialogBorder"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/border"
+        app:layout_constraintBottom_toTopOf="@+id/check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialogDescription" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogBorder"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/okBtnforphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="11dp"
+            android:visibility="visible"
+            android:fontFamily="@font/nunito_bold"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="@string/ok"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/nunito_bold"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="Cancel"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
