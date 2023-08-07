@@ -36,7 +36,7 @@ class GalleryFragment : Fragment() {
         val root: View = binding.root
         initAdapter()
         initObserver()
-
+        galleryViewModel.addCategory()
         galleryViewModel.text.observe(viewLifecycleOwner) {
         }
         return root
@@ -47,17 +47,44 @@ class GalleryFragment : Fragment() {
             when (it) {
                 is CategoryState.Success -> {
                     adapter.updateListLayout(it.categories)
+                    binding.progressBarContainer.visibility = View.GONE
+
                     
                 }
 
                 is CategoryState.Error -> {
+                    binding.progressBarContainer.visibility = View.GONE
 
 
                 }
                 is CategoryState.IsLoading -> {
+                    binding.progressBarContainer.visibility = View.VISIBLE
                 }
             }
         }
+
+        galleryViewModel.addCategoryState.observe(viewLifecycleOwner) {
+            when (it) {
+                is CategoryState.Success -> {
+                    binding.progressBarContainer.visibility = View.GONE
+
+                    adapter.updateListLayout(it.categories)
+
+                }
+
+                is CategoryState.Error -> {
+                    binding.progressBarContainer.visibility = View.GONE
+
+
+
+                }
+                is CategoryState.IsLoading -> {
+                    binding.progressBarContainer.visibility = View.VISIBLE
+
+                }
+            }
+        }
+
 
     }
 

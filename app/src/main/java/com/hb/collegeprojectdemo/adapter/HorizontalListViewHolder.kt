@@ -7,12 +7,11 @@ import com.hb.collegeprojectdemo.databinding.CategoryListViewBinding
 
 class HorizontalListViewHolder(private val binding: CategoryListViewBinding,) :
     RecyclerView.ViewHolder(binding.root) {
-    var keyforresponse = ""
 
 
 
     fun bind(category: Category) {
-
+        binding.categoryName.text = category.name
     }
 
 

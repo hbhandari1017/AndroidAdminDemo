@@ -3,6 +3,7 @@ package com.hb.collegeprojectdemo.repo
 import com.hb.collegeprojectdemo.database.dao.CategoryDao
 import com.hb.collegeprojectdemo.database.dao.ProductDao
 import com.hb.collegeprojectdemo.database.dao.UserDao
+import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.database.model.User
 
 
@@ -16,6 +17,11 @@ class CommonRepo constructor(
 
     suspend fun addAdmin(user: User) = userDao.insert(user)
     suspend fun getAllCategory() = categoryDao.getAllCategories()
+    suspend fun addCategory(addThis: List<Category>) : List<Long>{
+       return  categoryDao.insertMany(addThis)
+    }
+
+
 
 
 }

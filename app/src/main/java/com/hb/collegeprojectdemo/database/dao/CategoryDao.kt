@@ -3,6 +3,7 @@ package com.hb.collegeprojectdemo.database.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.hb.collegeprojectdemo.database.configuration.DatabaseConfigs
@@ -12,16 +13,18 @@ import com.hb.collegeprojectdemo.database.model.Category
 @Dao
 interface CategoryDao {
     @Insert
-    fun insert(category: Category)
+    suspend fun insert(category: Category)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMany(category: List<Category>):List<Long>
 
     @Update
-    fun update(category: Category)
+    suspend fun update(category: Category)
 
     @Delete
-    fun delete(category: Category)
+   suspend fun delete(category: Category)
 
     @Query("SELECT * FROM " + DatabaseConfigs.tbl_category)
-    fun getAllCategories(): List<Category>
+   suspend  fun getAllCategories(): List<Category>
 
     // Add other queries as needed
 }
