@@ -13,7 +13,7 @@ import com.hb.collegeprojectdemo.database.model.Category
 @Dao
 interface CategoryDao {
     @Insert
-    suspend fun insert(category: Category)
+    suspend fun insert(category: Category):Long
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(category: List<Category>):List<Long>
 

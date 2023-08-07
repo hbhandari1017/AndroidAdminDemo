@@ -1,24 +1,21 @@
-package com.pixend.app.dialogs
+package com.hb.collegeprojectdemo.dailog
 
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import android.view.Window
-import com.pixend.app.databinding.PhotosaveDailogBinding
+import com.hb.collegeprojectdemo.database.model.Category
+import com.hb.collegeprojectdemo.databinding.PhotosaveDailogBinding
 
 
 class SavePhotoDialog(context: Context) : Dialog(context) {
-    private lateinit var binding:PhotosaveDailogBinding
-    var message: String = "message"
+    private lateinit var binding: PhotosaveDailogBinding
     var onTryAgainListener: OnTryAgainListener? = null
-    var showCancelButton=true
-    var textforOkButton = ""
 
     init {
-        setCancelable(false)
+        setCancelable(true)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
@@ -27,28 +24,19 @@ class SavePhotoDialog(context: Context) : Dialog(context) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = PhotosaveDailogBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setContentView(R.layout.photosave_dailog)
-        if(showCancelButton){
-            binding.cancel.visibility= View.VISIBLE
-        } else{
-            binding.cancel.visibility=View.GONE
-        }
-        if(textforOkButton.isNotEmpty()){
-            binding. okBtnforphoto.text = textforOkButton
-        }
         binding. okBtnforphoto.setOnClickListener {
-            onTryAgainListener?.okButtonClicked()
+            val category = Category(name = binding.addCategoryEditText.text.toString())
+            onTryAgainListener?.okButtonClicked(category)
 
         }
         binding.cancel.setOnClickListener {
             onTryAgainListener?.cancelButtonClicked()
 
         }
-        binding. dialogDescription.text = message
 
     }
     interface OnTryAgainListener {
-        fun okButtonClicked()
+        fun okButtonClicked(category: Category)
         fun cancelButtonClicked()
 
     }

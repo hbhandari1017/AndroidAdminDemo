@@ -6,9 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hb.collegeprojectdemo.R
 import com.hb.collegeprojectdemo.adapter.CommonAdapter
+import com.hb.collegeprojectdemo.dailog.SavePhotoDialog
+import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.databinding.FragmentGalleryBinding
+import com.hb.collegeprojectdemo.utils.Preference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -25,6 +30,8 @@ class GalleryFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var addCategoryDialog: SavePhotoDialog
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +43,48 @@ class GalleryFragment : Fragment() {
         val root: View = binding.root
         initAdapter()
         initObserver()
+        initListeners()
         galleryViewModel.addCategory()
+        Preference.init(requireContext())
+
         galleryViewModel.text.observe(viewLifecycleOwner) {
         }
         return root
+    }
+
+    private fun goToHome(){
+        Preference.setUserLoggedIn(false)
+        findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+
+    }
+
+    private fun initListeners() {
+        binding.categoryAdd.setOnClickListener {
+            addCategoryDialog = SavePhotoDialog(requireActivity()).apply {
+
+
+                this.onTryAgainListener = object : SavePhotoDialog.OnTryAgainListener {
+                    override fun okButtonClicked(category: Category) {
+
+                        galleryViewModel.addCategoryFromUser(category)
+                        addCategoryDialog.dismiss()
+
+                    }
+
+                    override fun cancelButtonClicked() {
+                        addCategoryDialog.dismiss()
+                    }
+
+                }
+            }
+            addCategoryDialog.show()
+
+
+        }
+
+        binding.logOut.setOnClickListener {
+            goToHome()
+        }
     }
 
     private fun initObserver() {
@@ -92,6 +137,14 @@ class GalleryFragment : Fragment() {
         adapter = CommonAdapter()
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.categoryRecyclerView.adapter = adapter
+        adapter.checkClickListener = { category, position ->
+
+            val args = Bundle().apply {
+                putString("category_data", category.name)
+            }
+            args.putString("category_data_id","${category.id}")
+            findNavController().navigate(R.id.action_homeFragment_to_SlideShowFragment, args)
+        }
 
 
     }

@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.hb.collegeprojectdemo.database.configuration.DatabaseConfigs
-import com.hb.collegeprojectdemo.database.model.Product
 import com.hb.collegeprojectdemo.database.model.User
 
 @Dao
@@ -21,6 +20,9 @@ interface UserDao /*: BaseDao<Image> */ {
 
     @Query("SELECT * FROM " + DatabaseConfigs.tbl_user)
     suspend fun getAllUsers(): List<User>
+
+    @Query("SELECT * FROM " + DatabaseConfigs.tbl_user +  " WHERE userName = :name")
+    suspend fun getAdmin(name:String): List<User>
 
     @Update()
     suspend fun update(user: User)

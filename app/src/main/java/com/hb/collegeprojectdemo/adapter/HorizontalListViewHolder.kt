@@ -5,13 +5,18 @@ import com.hb.collegeprojectdemo.database.model.Category
 import com.hb.collegeprojectdemo.databinding.CategoryListViewBinding
 
 
-class HorizontalListViewHolder(private val binding: CategoryListViewBinding,) :
+class HorizontalListViewHolder(private val binding: CategoryListViewBinding,var checkClickListener: ((Category, Int) -> Unit)? = null) :
     RecyclerView.ViewHolder(binding.root) {
 
 
 
-    fun bind(category: Category) {
+    fun bind(category: Category , position: Int) {
         binding.categoryName.text = category.name
+        binding.categoryNameContainer.setOnClickListener {
+            checkClickListener?.invoke(category,position)
+
+        }
+
     }
 
 

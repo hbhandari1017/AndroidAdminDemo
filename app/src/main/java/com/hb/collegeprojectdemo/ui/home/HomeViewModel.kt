@@ -51,7 +51,9 @@ class HomeViewModel  @Inject constructor(private val repo: CommonRepo) : ViewMod
 
     fun addAdmin(user: User) {
         viewModelScope.launch {
-            repo.addAdmin(user)
+            val tempUser = repo.getAdmin("sa")
+            if(tempUser.isEmpty())  repo.addAdmin(user)
+
         }
 
     }

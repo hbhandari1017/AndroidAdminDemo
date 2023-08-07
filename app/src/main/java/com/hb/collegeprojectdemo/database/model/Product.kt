@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.hb.collegeprojectdemo.database.RoleType
 import com.hb.collegeprojectdemo.database.configuration.DatabaseConfigs
 import java.io.Serializable
 
@@ -23,7 +22,7 @@ data class Product(
 
     val name: String,
 
-    val price: Double,
+    val price: String,
     val categoryId: Int // Foreign key referencing Category table
 
     ) : Serializable {

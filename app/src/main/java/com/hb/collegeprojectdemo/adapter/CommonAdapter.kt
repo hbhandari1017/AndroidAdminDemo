@@ -13,6 +13,9 @@ class CommonAdapter  : ListAdapter<Category, HorizontalListViewHolder>(DiffCallb
 
     private lateinit var adapterBinding:CategoryListViewBinding
 
+    var checkClickListener: ((Category, Int) -> Unit)? = null
+
+
 
 
     private class DiffCallback : DiffUtil.ItemCallback<Category>() {
@@ -29,11 +32,11 @@ class CommonAdapter  : ListAdapter<Category, HorizontalListViewHolder>(DiffCallb
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalListViewHolder {
         adapterBinding = CategoryListViewBinding.inflate( LayoutInflater.from(parent.context),parent,false)
 
-        return HorizontalListViewHolder(adapterBinding)
+        return HorizontalListViewHolder(adapterBinding,checkClickListener)
     }
 
     override fun onBindViewHolder(holder: HorizontalListViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),position)
 
 
     }

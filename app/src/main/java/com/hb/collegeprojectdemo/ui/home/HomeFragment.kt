@@ -7,17 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hb.collegeprojectdemo.R
 import com.hb.collegeprojectdemo.database.RoleType
 import com.hb.collegeprojectdemo.database.model.User
-import com.hb.collegeprojectdemo.databinding.FragmentHomeBinding
 import com.hb.collegeprojectdemo.databinding.FragmentLoginBinding
+import com.hb.collegeprojectdemo.utils.Preference
 import com.hb.collegeprojectdemo.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,12 +42,19 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        Preference.init(requireContext())
 
         val buttonView: Button = binding.submitButton
-        homeViewModel.addAdmin(User(userName = "sa", password = "password",role = RoleType.ADMIN))
+        if(Preference.getUserLoggedIn()){
+            goToHome()
+        } else{
+            homeViewModel.addAdmin(User(userName = "sa", password = "password",role = RoleType.ADMIN))
+            setUpSignUpButton()
+
+
+        }
         setUpObservers()
         setUpListeners()
-        setUpSignUpButton()
         return root
     }
 
@@ -96,6 +101,11 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun goToHome(){
+        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+    }
+
     private fun setUpObservers() {
         homeViewModel.text.observe(viewLifecycleOwner) {
         }
@@ -104,8 +114,8 @@ class HomeFragment : Fragment() {
             when (it) {
                 is SignInState.Success -> {
                     binding.loginProgressBar.visibility = View.GONE
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-
+                    Preference.setUserLoggedIn(true)
+                    goToHome()
 
                 }
 

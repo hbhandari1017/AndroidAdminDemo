@@ -25,7 +25,7 @@ class GalleryViewModel @Inject constructor(private val repo: CommonRepo) : ViewM
     val getAllCategoryState: LiveData<CategoryState> get() = _getAllCategoryState
 
     private var _addCategoryState: MutableLiveData<CategoryState> = MutableLiveData()
-    val addCategoryState: LiveData<CategoryState> get() = _addCategoryState//After otp validation login state (success or failure)
+    val addCategoryState: LiveData<CategoryState> get() = _addCategoryState
 
 
     private val _text = MutableLiveData<String>().apply {
@@ -47,17 +47,40 @@ class GalleryViewModel @Inject constructor(private val repo: CommonRepo) : ViewM
     fun addCategory() {
         _addCategoryState.postValue(CategoryState.IsLoading)
         viewModelScope.launch {
-            val listOfCategory = ArrayList<Category>()
-            val tempCategory = Category(name = "category1")
-            val tempCategory2 = Category(name = "category2")
-            val tempCategory3 = Category(name = "category3")
-            val tempCategory4 = Category(name = "category4")
-            listOfCategory.add(tempCategory)
-            listOfCategory.add(tempCategory2)
-            listOfCategory.add(tempCategory3)
-            listOfCategory.add(tempCategory4)
-            val allData = repo.addCategory(listOfCategory)
-            if (allData.isEmpty()) {
+            val categoryFromDb = repo.getAllCategory()
+            if (categoryFromDb.isEmpty()) {
+
+
+                val listOfCategory = ArrayList<Category>()
+                val tempCategory = Category(name = "category1")
+                val tempCategory2 = Category(name = "category2")
+                val tempCategory3 = Category(name = "category3")
+                val tempCategory4 = Category(name = "category4")
+                listOfCategory.add(tempCategory)
+                listOfCategory.add(tempCategory2)
+                listOfCategory.add(tempCategory3)
+                listOfCategory.add(tempCategory4)
+                val allData = repo.addCategory(listOfCategory)
+                if (allData.isEmpty()) {
+                    _getAllCategoryState.postValue(CategoryState.Error(message = "error"))
+                } else {
+                    _getAllCategoryState.postValue(CategoryState.Success(categories = repo.getAllCategory()))
+
+                }
+
+            }else{
+                _getAllCategoryState.postValue(CategoryState.Success(categories = categoryFromDb))
+
+            }
+        }
+
+    }
+
+    fun addCategoryFromUser(category: Category) {
+        _addCategoryState.postValue(CategoryState.IsLoading)
+        viewModelScope.launch {
+            val allData = repo.addCategoryFromUser(category)
+            if (allData.toInt() == 0) {
                 _getAllCategoryState.postValue(CategoryState.Error(message = "error"))
             } else {
                 _getAllCategoryState.postValue(CategoryState.Success(categories = repo.getAllCategory()))
@@ -68,6 +91,7 @@ class GalleryViewModel @Inject constructor(private val repo: CommonRepo) : ViewM
 
 
     }
+
 
 
 }
