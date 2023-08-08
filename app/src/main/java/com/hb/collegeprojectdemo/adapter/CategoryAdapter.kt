@@ -13,7 +13,7 @@ class CategoryAdapter  : ListAdapter<Category, CategoryHorizontalListViewHolder>
 
     private lateinit var adapterBinding:CategoryListViewBinding
 
-    var checkClickListener: ((Category, Int) -> Unit)? = null
+    var checkClickListener: ((Category, Int,Boolean) -> Unit)? = null
 
 
 

@@ -21,7 +21,7 @@ interface CategoryDao {
     suspend fun update(category: Category)
 
     @Delete
-   suspend fun delete(category: Category)
+   suspend fun delete(category: Category):Int
 
     @Query("SELECT * FROM " + DatabaseConfigs.tbl_category)
    suspend  fun getAllCategories(): List<Category>

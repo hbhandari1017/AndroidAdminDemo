@@ -17,7 +17,7 @@ sealed class ProductState {
 }
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class SlideshowViewModel   @Inject constructor(private val repo: CommonRepo) : ViewModel() {
+class ProductViewModel   @Inject constructor(private val repo: CommonRepo) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is slideshow Fragment"

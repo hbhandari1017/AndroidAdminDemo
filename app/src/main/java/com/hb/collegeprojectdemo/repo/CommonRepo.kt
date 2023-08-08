@@ -33,6 +33,8 @@ class CommonRepo constructor(
         return  categoryDao.insert(addThis)
     }
 
+    suspend fun deleteCategory(category: Category) = categoryDao.delete(category)
+
 
 
 

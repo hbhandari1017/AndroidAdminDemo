@@ -22,7 +22,7 @@ sealed class SignInState {
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class HomeViewModel  @Inject constructor(private val repo: CommonRepo) : ViewModel() {
+class LoginViewModel  @Inject constructor(private val repo: CommonRepo) : ViewModel() {
 
     private var _loginState: MutableLiveData<SignInState> = MutableLiveData()
     val loginState: LiveData<SignInState> get() = _loginState//After otp validation login state (success or failure)

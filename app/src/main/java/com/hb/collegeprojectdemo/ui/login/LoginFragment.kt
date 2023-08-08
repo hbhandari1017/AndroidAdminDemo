@@ -31,7 +31,7 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    val homeViewModel: HomeViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
         if(Preference.getUserLoggedIn()){
             goToHome()
         } else{
-            homeViewModel.addAdmin(User(userName = "sa", password = "password",role = RoleType.ADMIN))
+            loginViewModel.addAdmin(User(userName = "sa", password = "password",role = RoleType.ADMIN))
             setUpSignUpButton()
 
 
@@ -107,10 +107,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        loginViewModel.text.observe(viewLifecycleOwner) {
         }
 
-        homeViewModel.loginState.observe(viewLifecycleOwner) {
+        loginViewModel.loginState.observe(viewLifecycleOwner) {
             when (it) {
                 is SignInState.Success -> {
                     binding.loginProgressBar.visibility = View.GONE
@@ -129,6 +129,8 @@ class LoginFragment : Fragment() {
                 is SignInState.IsLoading -> {
                     binding.loginProgressBar.visibility = View.VISIBLE
                 }
+
+                else -> {}
             }
         }
 
@@ -142,7 +144,7 @@ class LoginFragment : Fragment() {
           val password = binding.passwordEditText.text.toString()
           val user = User(userName =  userName, password = password, role = RoleType.ADMIN)
 
-          homeViewModel.signUp(user)
+          loginViewModel.signUp(user)
 
       }
     }

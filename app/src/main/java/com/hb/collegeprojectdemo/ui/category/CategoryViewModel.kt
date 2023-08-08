@@ -19,7 +19,7 @@ sealed class CategoryState {
 }
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class GalleryViewModel @Inject constructor(private val repo: CommonRepo) : ViewModel() {
+class CategoryViewModel @Inject constructor(private val repo: CommonRepo) : ViewModel() {
 
     private var _getAllCategoryState: MutableLiveData<CategoryState> = MutableLiveData()
     val getAllCategoryState: LiveData<CategoryState> get() = _getAllCategoryState
@@ -92,6 +92,26 @@ class GalleryViewModel @Inject constructor(private val repo: CommonRepo) : ViewM
 
     }
 
+    fun deleteCategory(category: Category) {
+        _addCategoryState.postValue(CategoryState.IsLoading)
+        viewModelScope.launch {
+            try {
+                val allData = repo.deleteCategory(category)
+                if (allData == 0) {
+                    _getAllCategoryState.postValue(CategoryState.Error(message = "error"))
+                } else {
+                    _getAllCategoryState.postValue(CategoryState.Success(categories = repo.getAllCategory()))
+
+                }
+            } catch (e : Exception){
+                _getAllCategoryState.postValue(CategoryState.Error(message = "error"+ e.message))
+
+            }
+
+
+        }
+
+    }
 
 
 }

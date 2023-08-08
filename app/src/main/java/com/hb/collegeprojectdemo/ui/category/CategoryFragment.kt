@@ -24,7 +24,7 @@ class CategoryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
     private lateinit var adapter: CategoryAdapter
 
-    val galleryViewModel: GalleryViewModel by viewModels()
+    val categoryViewModel: CategoryViewModel by viewModels()
 
 
     // This property is only valid between onCreateView and
@@ -44,10 +44,10 @@ class CategoryFragment : Fragment() {
         initAdapter()
         initObserver()
         initListeners()
-        galleryViewModel.addCategory()
+        categoryViewModel.addCategory()
         Preference.init(requireContext())
 
-        galleryViewModel.text.observe(viewLifecycleOwner) {
+        categoryViewModel.text.observe(viewLifecycleOwner) {
         }
         return root
     }
@@ -66,7 +66,7 @@ class CategoryFragment : Fragment() {
                 this.onTryAgainListener = object : AddCategoryDialog.OnTryAgainListener {
                     override fun okButtonClicked(category: Category) {
 
-                        galleryViewModel.addCategoryFromUser(category)
+                        categoryViewModel.addCategoryFromUser(category)
                         addCategoryDialog.dismiss()
 
                     }
@@ -88,12 +88,11 @@ class CategoryFragment : Fragment() {
     }
 
     private fun initObserver() {
-        galleryViewModel.getAllCategoryState.observe(viewLifecycleOwner) {
+        categoryViewModel.getAllCategoryState.observe(viewLifecycleOwner) {
             when (it) {
                 is CategoryState.Success -> {
                     adapter.updateListLayout(it.categories)
                     binding.progressBarContainer.visibility = View.GONE
-
                     
                 }
 
@@ -108,7 +107,7 @@ class CategoryFragment : Fragment() {
             }
         }
 
-        galleryViewModel.addCategoryState.observe(viewLifecycleOwner) {
+        categoryViewModel.addCategoryState.observe(viewLifecycleOwner) {
             when (it) {
                 is CategoryState.Success -> {
                     binding.progressBarContainer.visibility = View.GONE
@@ -137,13 +136,19 @@ class CategoryFragment : Fragment() {
         adapter = CategoryAdapter()
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.categoryRecyclerView.adapter = adapter
-        adapter.checkClickListener = { category, position ->
+        adapter.checkClickListener = { category, position , delete->
+            if(delete){
+                categoryViewModel.deleteCategory(category)
 
-            val args = Bundle().apply {
-                putString("category_data", category.name)
+            }else{
+                val args = Bundle().apply {
+                    putString("category_data", category.name)
+                }
+                args.putString("category_data_id","${category.id}")
+                findNavController().navigate(R.id.action_homeFragment_to_SlideShowFragment, args)
             }
-            args.putString("category_data_id","${category.id}")
-            findNavController().navigate(R.id.action_homeFragment_to_SlideShowFragment, args)
+
+
         }
 
 

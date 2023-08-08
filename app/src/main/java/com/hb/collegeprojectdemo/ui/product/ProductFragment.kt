@@ -26,7 +26,7 @@ class ProductFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    val slideshowViewModel: SlideshowViewModel by viewModels()
+    private val productViewModel: ProductViewModel by viewModels()
 
 
 
@@ -45,7 +45,7 @@ class ProductFragment : Fragment() {
         val textView: TextView = binding.homeTitle
         textView.text = inputText
 
-        slideshowViewModel.addProduct(id!!.toInt())
+        productViewModel.addProduct(id!!.toInt())
         initObservers()
         initListeners()
         initAdapter()
@@ -90,7 +90,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun initObservers() {
-    slideshowViewModel.addProductState.observe(viewLifecycleOwner){
+    productViewModel.addProductState.observe(viewLifecycleOwner){
         when (it) {
             is ProductState.Success -> {
                 adapter.updateListLayout(it.products)
